@@ -26,9 +26,9 @@
 
 #include <shlobj.h>
 #include "nblauncher.h"
-#include "../../../platform/o.n.bootstrap/launcher/windows/utilsfuncs.h"
-#include "../../../platform/o.n.bootstrap/launcher/windows/argnames.h"
-#include "../../../platform/o.n.bootstrap/launcher/windows/nbexecloader.h"
+#include "../bootstrap/utilsfuncs.h"
+#include "../bootstrap/argnames.h"
+#include "../bootstrap/nbexecloader.h"
 
 using namespace std;
 
