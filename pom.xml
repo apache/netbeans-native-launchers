@@ -24,7 +24,7 @@ under the License.
         <version>2</version>
     </parent>
     <groupId>org.apache.netbeans.native</groupId>
-    <version>12.5-SNAPSHOT</version>
+    <version>12.5</version>
 
     <artifactId>launcher</artifactId>
     <packaging>jar</packaging>
@@ -32,7 +32,7 @@ under the License.
         <connection>scm:git:https://gitbox.apache.org/repos/asf/netbeans-native-launchers.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/netbeans-native-launchers.git</developerConnection>
         <url>https://github.com/apache/netbeans-native-launchers</url>
-        <tag>master</tag>
+        <tag>launcher-12.5</tag>
     </scm> 
     <name>Apache NetBeans Launcher</name>
     <description>
@@ -74,16 +74,16 @@ under the License.
                         <configuration>
                             <target>
                                 <exec executable="make" dir="src/main/cpp/bootstrap">
-                                    <arg value="-f"/>
-                                    <arg value="Makefile.mingw"/>
+                                    <arg value="-f" />
+                                    <arg value="Makefile.mingw" />
                                 </exec>
                                 <exec executable="make" dir="src/main/cpp/ide">
-                                    <arg value="-f"/>
-                                    <arg value="Makefile.mingw"/>
+                                    <arg value="-f" />
+                                    <arg value="Makefile.mingw" />
                                 </exec>
                                 <exec executable="make" dir="src/main/cpp/harness">
-                                    <arg value="-f"/>
-                                    <arg value="Makefile.mingw"/>
+                                    <arg value="-f" />
+                                    <arg value="Makefile.mingw" />
                                 </exec>
                             </target>
                         </configuration>
