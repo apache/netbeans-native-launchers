@@ -28,7 +28,12 @@ under the License.
 
     <artifactId>launcher</artifactId>
     <packaging>jar</packaging>
-  
+     <scm>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/netbeans-native-launchers.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/netbeans-native-launchers.git</developerConnection>
+        <url>https://github.com/apache/netbeans-native-launchers</url>
+        <tag>master</tag>
+    </scm> 
     <name>Apache NetBeans Launcher</name>
     <description>
    
