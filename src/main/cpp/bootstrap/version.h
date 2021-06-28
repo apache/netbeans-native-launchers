@@ -19,9 +19,9 @@
 
 #define COMPANY ""
 #define COMPONENT "NetBeans Platform Launcher"
-#define VER "9.0.0.0"
-#define FVER 9,0,0,0
-#define BUILD_ID "03062018"
+#define VER "12.5.0.0"
+#define FVER 12,5,0,0
+#define BUILD_ID "28062021"
 #define INTERNAL_NAME "nbexec"
 #define COPYRIGHT "Based on Apache NetBeans from the Apache Software Foundation and is licensed under Apache License Version 2.0"
 #define NAME "NetBeans Platform Launcher"
