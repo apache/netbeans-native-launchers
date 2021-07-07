@@ -23,6 +23,10 @@ pipeline {
     triggers {
         pollSCM('H/5 * * * * ')
     }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+        disableConcurrentBuilds() 
+    }
     stages{
         stage("Build with jdk 8 ") {
             agent { node { label 'ubuntu' } }
