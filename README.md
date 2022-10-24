@@ -44,5 +44,4 @@ $ mvn clean install
 
 ## Reporting Bugs
 
-Bugs should be reported to https://issues.apache.org/jira/projects/NETBEANS/issues/ 
-
+Use our main repository issue reporting https://github.com/apache/netbeans/issues
