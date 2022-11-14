@@ -21,10 +21,10 @@ under the License.
     <parent>
         <groupId>org.apache.netbeans</groupId>
         <artifactId>netbeans-parent</artifactId>
-        <version>2</version>
+        <version>3</version>
     </parent>
     <groupId>org.apache.netbeans.native</groupId>
-    <version>12.6-SNAPSHOT</version>
+    <version>2022.11-SNAPSHOT</version>
 
     <artifactId>launcher</artifactId>
     <packaging>jar</packaging>
@@ -102,7 +102,7 @@ under the License.
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>add-source</id>

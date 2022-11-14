@@ -21,6 +21,8 @@
 
 # Apache NetBeans Native Launchers
 
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.netbeans.native/launcher.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.netbeans.native/launcher)
+
 ## 
 
 To build binaries, only Linux OS is known to work, using the MinGW project. On Ubuntu,
