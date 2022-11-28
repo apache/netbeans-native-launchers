@@ -25,6 +25,7 @@
 #endif
 
 #include <shlobj.h>
+#include <winnls.h>
 #include "nblauncher.h"
 #include "../bootstrap/utilsfuncs.h"
 #include "../bootstrap/argnames.h"
@@ -157,6 +158,20 @@ int NbLauncher::start(int argc, char *argv[]) {
     return loader.start(nbexecPath.c_str(), newArgs.getCount(), newArgs.getArgs());
 }
 
+UINT GetAnsiCodePageForLocale(LCID lcid) {
+    // See https://devblogs.microsoft.com/oldnewthing/20161007-00/?p=94475
+    UINT acp;
+    int sizeInChars = sizeof(acp) / sizeof(TCHAR);
+    if (GetLocaleInfo(lcid,
+                      LOCALE_IDEFAULTANSICODEPAGE | LOCALE_RETURN_NUMBER,
+                      reinterpret_cast<LPTSTR>(&acp),
+                      sizeInChars) != sizeInChars)
+    {
+        return 0;
+    }
+    return acp;
+}
+
 bool NbLauncher::initBaseNames() {
     char path[MAX_PATH] = "";
     getCurrentModulePath(path, MAX_PATH);
@@ -181,49 +196,23 @@ bool NbLauncher::initBaseNames() {
     }
     *bslash = '\0';        
 
+    /* Useful messages for debugging character set issues. On Java versions where
+    https://bugs.openjdk.org/browse/JDK-8272352 has been fixed, NetBeans should now run fine when
+    there are Unicode characters in the NetBeans installation path, the JDK path, the user/cache
+    directory paths, or in the java.io.tmpdir path (the latter sometimes being a problem for JNA,
+    which is used by FlatLAF). Since the JVM is started in-process via JNI, the Java environment
+    will inherit the UTF-8 code page setting that we have set in the launcher's application
+    manifest, without requiring the user to change regional settings in the Control Panel. (JEP 400
+    might eventually do something similar for the java.exe/javaw.exe executables. See
+    https://www.mail-archive.com/core-libs-dev@openjdk.java.net/msg80489.html .) */
+    logMsg("ANSI code page per GetACP()              : %d", GetACP());
+    logMsg("ANSI code page per GetConsoleCP()        : %d", GetConsoleCP());
+    logMsg("ANSI code page for GetThreadLocale()     : %d", GetAnsiCodePageForLocale(GetThreadLocale()));
+    logMsg("ANSI code page for GetUserDefaultLCID()  : %d", GetAnsiCodePageForLocale(GetUserDefaultLCID()));
+    logMsg("ANSI code page for GetSystemDefaultLCID(): %d", GetAnsiCodePageForLocale(GetSystemDefaultLCID()));
+
     baseDir = path;
-    
-    /* The JavaVMOption.optionString interface forces us to stick to ANSI
-    strings only, using whichever codepage is the default on the current Windows
-    installation (e.g. windows-1252 for US Windows). For any Unicode characters
-    that cannot be encoded using the current ANSI codepage, Win32 functions
-    such as GetModuleFileName (used by getCurrentModulePath) and
-    GetCurrentDirectory will substitute a question mark, which we detect here.
-    Note that the ANSI codepage is a superset of ASCII; it can accomodate a
-    limited selection of international characters that Microsoft once considered
-    appropriate for the current Windows locale.
 
-    It would be easy enough to switch the launcher process to UTF-8 everywhere;
-    this can be configured from the manifest file
-    (see https://learn.microsoft.com/en-us/windows/apps/design/globalizing/use-utf8-code-page ).
-    String types in these sources could remain as "char *" rather than
-    wchar_t. The problem is that JNI will still seems to expect parameters to be
-    passed using the default Windows codepage.
-
-    I tried setting UTF8 in the manifests and using the --fork-java parameter
-    to use the old CreateProcess launcher rather than JNI, but this still
-    causes a "Could not find or load main class org.netbeans.Main" error. I
-    also tried doing MultiByteToWideChar from UTF8 to wchar_t and calling
-    CreateProcessW; it does not fix the problem even though changing the command
-    line to prefix "cmd /c echo" causes my Cyrillic test character to show up
-    correctly on the Windows command line.
-
-    Other approaches which were attempted, but demeed too fragile:
-    1) Set the current directory to baseDir and pass relative paths only.
-       (Still led to ClassNotFoundException from ProxyClassLoader, which would
-       have needed to be fixed. And doesn't work e.g. for the home directory,
-       e.g. if the username itself has problematic characters in it.)
-    2) Using the GetShortPathNameW function to get an equivalent
-       Windows 95 style "8.3" compatibility path (e.g. "C:\Users\CHARTE~1").
-       This worked, but is too likely to create problems down the line.
-    */
-    for (size_t i = 0; i < baseDir.size(); ++i) {
-        if (baseDir[i] == '?') {
-            logErr(false, true, "Cannot run in this folder; the path \"%s\" contains problematic characters.", path);
-            return false;
-        }
-    }
-    
     logMsg("Base dir: %s", baseDir.c_str());
     return true;
 }
