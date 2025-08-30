@@ -73,19 +73,20 @@ under the License.
                         </goals>
                         <configuration>
                             <target>
-                                <exec executable="make" dir="src/main/cpp/bootstrap">
+                                <exec executable="make" failonerror="true" dir="src/main/cpp/bootstrap">
                                     <arg value="-f" />
                                     <arg value="Makefile.mingw" />
                                 </exec>
-                                <exec executable="make" dir="src/main/cpp/ide">
+                                <exec executable="make" failonerror="true" dir="src/main/cpp/ide">
                                     <arg value="-f" />
                                     <arg value="Makefile.mingw" />
                                 </exec>
-                                <exec executable="make" dir="src/main/cpp/harness">
+                                <exec executable="make" failonerror="true" dir="src/main/cpp/harness">
                                     <arg value="-f" />
                                     <arg value="Makefile.mingw" />
                                 </exec>
                             </target>
+                            <failOnError>true</failOnError>
                         </configuration>
                     </execution>
                 </executions>
