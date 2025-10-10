@@ -21,29 +21,5 @@
 
 # Apache NetBeans Native Launchers
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.apache.netbeans.native/launcher.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.netbeans.native/launcher)
-
-## 
-
-To build binaries, only Linux OS is known to work, using the MinGW project. On Ubuntu,
-this may work to install suitable MinGW:
-
-```
-$ apt install mingw-w64 mingw-w64-tools
-```
-
-The command to build the launchers:
-
-```
-$ mvn clean install
-```
-
-## Get In Touch
-
-[Subscribe](mailto:users-subscribe@netbeans.apache.org) or [mail](mailto:users@netbeans.apache.org) the [users@netbeans.apache.org](mailto:users@netbeans.apache.org) list - Ask questions, find answers, and also help other users.
-
-[Subscribe](mailto:dev-subscribe@netbeans.apache.org) or [mail](mailto:dev@netbeans.apache.org) the [dev@netbeans.apache.org](mailto:dev@netbeans.apache.org) list - Join developement discussions, propose new ideas and connect with contributors.
-
-## Reporting Bugs
-
-Use our main repository issue reporting https://github.com/apache/netbeans/issues
+This repo was used to compile native code for launcher part of Apache NetBeans is now back in main repository https://github.com/apache/netbeans 
+and released there.
